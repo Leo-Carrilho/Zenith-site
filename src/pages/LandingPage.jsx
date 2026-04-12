@@ -1,155 +1,158 @@
-  import { useEffect, useState, useRef } from "react";
-  import { 
-    FaEnvelope, FaUser, FaComment, FaCheckCircle, 
-    FaTimesCircle, FaTiktok, FaInstagram, FaLinkedin, FaFacebook, 
-    FaDownload, FaRegAddressCard, FaMailBulk, FaPhoneAlt
-  } from 'react-icons/fa';
-  import "../styles/LandingPage.css";
-  import LottieAnimation from "../components/LottieAnimation";
-  import gsap from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger"
-  import Header from "../components/Header";
+import { useEffect, useState, useRef } from "react";
+import { 
+  FaEnvelope, FaUser, FaComment, FaCheckCircle, 
+  FaTimesCircle, FaTiktok, FaInstagram, FaLinkedin, FaFacebook, 
+  FaDownload, FaRegAddressCard, FaMailBulk, FaPhoneAlt,
+  FaBars, FaTimes
+} from 'react-icons/fa';
+import "../styles/LandingPage.css";
+import LottieAnimation from "../components/LottieAnimation";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import Header from "../components/Header";
 
+import monitoramento from "../../public/assets/icons/monitoramento.json";
+import analiseSafra from "../../public/assets/icons/analiseSafra.json";
+import mapeamento from "../../public/assets/icons/mapeamento.json";
+import auxilioIA from "../../public/assets/icons/auxilioIA.json";
+import downloadApp from "../../public/assets/icons/baixarApp.json";
+import cadastroUser from "../../public/assets/icons/criarConta.json";
+import droneMonitor from "../../public/assets/icons/conectadoSafra.json";
 
-  import monitoramento from "../../public/assets/icons/monitoramento.json";
-  import analiseSafra from "../../public/assets/icons/analiseSafra.json";
-  import mapeamento from "../../public/assets/icons/mapeamento.json";
-  import auxilioIA from "../../public/assets/icons/auxilioIA.json";
-  import downloadApp from "../../public/assets/icons/baixarApp.json";
-  import cadastroUser from "../../public/assets/icons/criarConta.json";
-  import droneMonitor from "../../public/assets/icons/conectadoSafra.json";
+gsap.registerPlugin(ScrollTrigger);
 
-  gsap.registerPlugin(ScrollTrigger);
-
-  export default function LandingPage() {
+export default function LandingPage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const headerRef = useRef(null);
+  const heroTextRef = useRef(null);
+  const heroImgRef = useRef(null);
+  const navMenuRef = useRef(null);
+  const menuOverlayRef = useRef(null);
 
   const handleInstallClick = async () => {
-  const PWA_URL = "https://instalacao-mobile.vercel.app" 
-  
-
-  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-  const isAndroid = /Android/i.test(navigator.userAgent);
-  const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-  
-  if (isAndroid) {
-    window.location.href = `${PWA_URL}?install=true`;
+    const PWA_URL = "https://instalacao-mobile.vercel.app" 
+    const isAndroid = /Android/i.test(navigator.userAgent);
+    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
     
-    setTimeout(() => {
-      alert('📱 Quando a tela de instalação aparecer, clique em "Instalar"');
-    }, 1000);
+    if (isAndroid) {
+      window.location.href = `${PWA_URL}?install=true`;
+      setTimeout(() => {
+        alert('📱 Quando a tela de instalação aparecer, clique em "Instalar"');
+      }, 1000);
+    } else if (isIOS) {
+      window.open(PWA_URL, '_blank');
+    } else {
+      window.location.href = PWA_URL;
+    }
+  };
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
+
+  // Fecha menu ao clicar em link
+  const handleNavLinkClick = () => {
+    closeMobileMenu();
+  };
+
+  useEffect(() => {
+    // Previne scroll do body quando menu mobile estiver aberto
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+
+  useEffect(() => {
+    // Animações GSAP
+    gsap.set(headerRef.current, { y: -120, opacity: 0 });
+    gsap.set(".hero-text > *", { x: -80, opacity: 0 });
+    gsap.set(heroImgRef.current, { x: 120, opacity: 0, scale: 0.9 });
+    gsap.set(".hero-buttons a, .hero-buttons button", { y: 80, opacity: 0 });
+
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+    tl.to(headerRef.current, { y: 0, opacity: 1, duration: 0.8 })
+      .to(".hero-text > *", { x: 0, opacity: 1, stagger: 0.25, duration: 0.7 })
+      .to(heroImgRef.current, { x: 0, opacity: 1, scale: 1, duration: 1 }, "-=0.6")
+      .to(".hero-buttons a, .hero-buttons button", { y: 0, opacity: 1, duration: 0.9, stagger: 0.2, ease: "expo.out" }, "-=0.4");
+
+    gsap.to(heroImgRef.current, { y: -20, duration: 3, repeat: -1, yoyo: true, ease: "sine.inOut" });
+
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      gsap.killTweensOf("*");
+    };
+  }, []);
+
+  const [formData, setFormData] = useState({ nome: '', email: '', mensagem: '' });
+  const [formStatus, setFormStatus] = useState({ submitted: false, loading: false, success: false, message: '' });
+  const [errors, setErrors] = useState({});
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!formData.nome.trim()) newErrors.nome = 'Nome é obrigatório';
+    else if (formData.nome.length < 3) newErrors.nome = 'Nome deve ter pelo menos 3 caracteres';
     
-  } else if (isIOS) {
-    window.open(PWA_URL, '_blank');
+    if (!formData.email.trim()) newErrors.email = 'E-mail é obrigatório';
+    else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'E-mail inválido';
     
-  } else {
-    window.location.href = PWA_URL;
-  }
-};
+    if (!formData.mensagem.trim()) newErrors.mensagem = 'Mensagem é obrigatória';
+    else if (formData.mensagem.length < 10) newErrors.mensagem = 'Mensagem deve ter pelo menos 10 caracteres';
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
-    const headerRef = useRef(null);
-    const heroTextRef = useRef(null);
-    const heroImgRef = useRef(null);
-    const contatoRef = useRef(null);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }));
+  };
 
-    let deferredPrompt;
-
-    useEffect(() => {
-
-        window.addEventListener("beforeinstallprompt", (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+    setFormStatus(prev => ({ ...prev, loading: true }));
+    try {
+      const res = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
       });
+      if (!res.ok) throw new Error();
+      setFormStatus({
+        submitted: true,
+        loading: false,
+        success: true,
+        message: "Mensagem enviada com sucesso!"
+      });
+      setFormData({ nome: "", email: "", mensagem: "" });
+    } catch {
+      setFormStatus({
+        submitted: true,
+        loading: false,
+        success: false,
+        message: "Erro ao enviar mensagem"
+      });
+    }
+  };
 
-      gsap.set(headerRef.current, { y: -120, opacity: 0 });
-      gsap.set(".hero-text > *", { x: -80, opacity: 0 });
-      gsap.set(heroImgRef.current, { x: 120, opacity: 0, scale: 0.9 });
-      gsap.set(".hero-buttons a, .hero-buttons button", { y: 80, opacity: 0 });
+  return (
+    <>
+      {/* Header com menu mobile funcional */}
+      <Header />
 
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-      tl.to(headerRef.current, { y: 0, opacity: 1, duration: 0.8 })
-        .to(".hero-text > *", { x: 0, opacity: 1, stagger: 0.25, duration: 0.7 })
-        .to(heroImgRef.current, { x: 0, opacity: 1, scale: 1, duration: 1 }, "-=0.6")
-        .to(".hero-buttons a, .hero-buttons button", { y: 0, opacity: 1, duration: 0.9, stagger: 0.2, ease: "expo.out" }, "-=0.4");
-
-      gsap.to(heroImgRef.current, { y: -20, duration: 3, repeat: -1, yoyo: true, ease: "sine.inOut" });
-
-      return () => {
-        ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-        gsap.killTweensOf("*");
-      };
-    }, []);
-
-    const [formData, setFormData] = useState({ nome: '', email: '', mensagem: '' });
-    const [formStatus, setFormStatus] = useState({ submitted: false, loading: false, success: false, message: '' });
-    const [errors, setErrors] = useState({});
-
-    const validateForm = () => {
-      const newErrors = {};
-      if (!formData.nome.trim()) newErrors.nome = 'Nome é obrigatório';
-      else if (formData.nome.length < 3) newErrors.nome = 'Nome deve ter pelo menos 3 caracteres';
-      
-      if (!formData.email.trim()) newErrors.email = 'E-mail é obrigatório';
-      else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'E-mail inválido';
-      
-      if (!formData.mensagem.trim()) newErrors.mensagem = 'Mensagem é obrigatória';
-      else if (formData.mensagem.length < 10) newErrors.mensagem = 'Mensagem deve ter pelo menos 10 caracteres';
-      
-      setErrors(newErrors);
-      return Object.keys(newErrors).length === 0;
-    };
-
-    const handleChange = (e) => {
-      const { name, value } = e.target;
-      setFormData(prev => ({ ...prev, [name]: value }));
-      if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }));
-    };
-
-   const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  if (!validateForm()) return;
-
-  setFormStatus(prev => ({ ...prev, loading: true }));
-
-  try {
-  const res = await fetch("/api/send-email", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(formData)
-  });
-
-  if (!res.ok) throw new Error();
-
-  const data = await res.text(); // opcional
-  console.log(data);
-
-  setFormStatus({
-    submitted: true,
-    loading: false,
-    success: true,
-    message: "Mensagem enviada com sucesso!"
-  });
-
-  setFormData({ nome: "", email: "", mensagem: "" });
-
-} catch {
-  setFormStatus({
-    submitted: true,
-    loading: false,
-    success: false,
-    message: "Erro ao enviar mensagem"
-  });
-}
-};
-
-    return (
-      <>
-        <Header />
-
-        <section className="hero">
+      <main>
+        <section className="hero" id="home">
           <div className="hero-text" ref={heroTextRef}>
             <span className="tag">Tecnologia agrícola</span>
             <h1>Serviços para <span>agricultura inteligente</span></h1>
@@ -159,7 +162,6 @@
                 <FaDownload /> Baixar App
               </button>
             </div>
-            
           </div>
           <div className="hero-img" ref={heroImgRef}>
             <img src="/assets/images/Mockup_cell2.png" alt="Mockup celular" />
@@ -350,52 +352,53 @@
           </div>
 
           <div className="contato-img">
-           <img src="/assets/images/Mockup_cell1.png" />
+            <img src="/assets/images/Mockup_cell1.png" alt="decoration" />
           </div>
         </section>
- 
-        <footer className="footer">
-          <div className="footer-container">
-            <div className="footer-col">
-              <h2 className="footer-logo">AgroTech</h2>
-              <p>Soluções com drones e tecnologia de precisão para monitoramento agrícola, identificação de pragas e otimização de lavouras.</p>
-            </div>
+      </main>
 
-            <div className="footer-col">
-              <h3>Links rápidos</h3>
-              <a href="#">Início</a>
-              <a href="/services">Serviços</a>
-              <a href="/como-acessar">Como acessar</a>
-              <a href="#contato">Contato</a>
-            </div>
-
-            <div className="footer-col">
-              <h3>FAQ</h3>
-              <a href="#">Como funcionam os drones?</a>
-              <a href="#">Quanto custa o serviço?</a>
-              <a href="#">Atendem quais regiões?</a>
-              <a href="#">Como contratar?</a>
-            </div>
-
-            <div className="footer-col">
-              <h3>Onde estamos</h3>
-              <p><div className="centralizar-footer"><FaRegAddressCard color="#4dffbe" /> Americana - SP</div></p>
-              <p>Atendimento em toda região do interior paulista.</p>
-              <p><div className="centralizar-footer"><FaMailBulk color="#4dffbe" /> contato@agrotech.com</div></p>
-              <p><div className="centralizar-footer"><FaPhoneAlt color="#4dffbe" /> (19) 99999-9999</div></p>
-            </div>
-
-            <div className="footer-col footer-action">
-              <h3>Plataforma</h3>
-              <p>Acesse o sistema para acompanhar monitoramentos e relatórios.</p>
-              <a href="/app" className="footer-btn">Acessar Plataforma</a>
-            </div>
+      <footer className="footer">
+        <div className="footer-container">
+          <div className="footer-col">
+            <h2 className="footer-logo">AgroTech</h2>
+            <p>Soluções com drones e tecnologia de precisão para monitoramento agrícola, identificação de pragas e otimização de lavouras.</p>
           </div>
 
-          <div className="footer-bottom">
-            <p>© 2026 AgroTech • Todos os direitos reservados</p>
+          <div className="footer-col">
+            <h3>Links rápidos</h3>
+            <a href="#home">Início</a>
+            <a href="/services">Serviços</a>
+            <a href="/como-acessar">Como acessar</a>
+            <a href="#contato">Contato</a>
           </div>
-        </footer>
-      </>
-    );
-  }
+
+          <div className="footer-col">
+            <h3>FAQ</h3>
+            <a href="#">Como funcionam os drones?</a>
+            <a href="#">Quanto custa o serviço?</a>
+            <a href="#">Atendem quais regiões?</a>
+            <a href="#">Como contratar?</a>
+          </div>
+
+          <div className="footer-col">
+            <h3>Onde estamos</h3>
+            <p><div className="centralizar-footer"><FaRegAddressCard color="#4dffbe" /> Americana - SP</div></p>
+            <p>Atendimento em toda região do interior paulista.</p>
+            <p><div className="centralizar-footer"><FaMailBulk color="#4dffbe" /> contato@agrotech.com</div></p>
+            <p><div className="centralizar-footer"><FaPhoneAlt color="#4dffbe" /> (19) 99999-9999</div></p>
+          </div>
+
+          <div className="footer-col footer-action">
+            <h3>Plataforma</h3>
+            <p>Acesse o sistema para acompanhar monitoramentos e relatórios.</p>
+            <a href="/app" className="footer-btn">Acessar Plataforma</a>
+          </div>
+        </div>
+
+        <div className="footer-bottom">
+          <p>© 2026 AgroTech • Todos os direitos reservados</p>
+        </div>
+      </footer>
+    </>
+  );
+}
