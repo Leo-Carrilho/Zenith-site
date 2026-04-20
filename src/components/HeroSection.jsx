@@ -164,10 +164,7 @@ export default function HeroSection({ onInstallClick }) {
             <div className="hud-data-label top-left">BATERIA: 82%</div>
             <div className="hud-data-label top-right">ALTURA: 120cm</div>
             <div className="hud-data-label bot-left">
-              <FaDna size={12} /> ESTRESSE: BAIXO
-            </div>
-            <div className="hud-data-label bot-right">
-              <FaChartBar size={12} /> PLANTAÇÃO: +32%
+              <FaDna size={12} /> ESTRESSE: BAIXO - PLANTAÇÃO: +32%
             </div>
           </div>
         </div>
