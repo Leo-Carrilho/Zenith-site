@@ -167,23 +167,18 @@ section { scroll-margin-top: 80px; }
   transform-origin: left;
   transition: transform 0.35s ease;
   z-index: 0;
+  color: #000 !important;
 }
 
 .btn-outline span, .btn-outline svg { position: relative; z-index: 1; }
 
 .btn-outline:hover {
-  color: #000;
+  color: #000 !important;
   transform: translateY(-2px);
   box-shadow: var(--shadow-glow);
 }
 
 .btn-outline:hover::after { transform: scaleX(1); }
-
-.btn-wpp {
-  background: transparent;
-  border: 2px solid rgba(22, 242, 154, 0.5);
-  color: var(--primary);
-}
 
 /* Header */
 header {
@@ -1022,7 +1017,7 @@ header {
 .feature-item {
   text-align: center;
   padding: 36px 28px;
-  background: #012a0a;
+  background: #13361b;
   border: 1px solid var(--glass-border);
   border-radius: 20px;
   transition: var(--transition);
@@ -1636,6 +1631,7 @@ header {
   margin-bottom: 10px;
   font-size: 22px;
   font-family: "Jersey 15", sans-serif;
+  font-weight: 300;
 }
 
 .footer-col p {

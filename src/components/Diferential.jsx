@@ -33,7 +33,7 @@ export default function Diferenciais() {
       
       <div className="container">
         <div className="section-header">
-          <span className="tag">Por que escolher a AgroTech</span>
+          <span className="tag">Por que escolher a Zenith</span>
           <h2>Nossos <span>diferenciais</span></h2>
         </div>
         <div className="features-grid">

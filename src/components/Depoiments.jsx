@@ -19,7 +19,7 @@ export default function Depoimentos() {
   }, []);
 
   const testimonials = [
-    { text: "Com a AgroTech aumentamos a produtividade em 40% e reduzimos perdas. O monitoramento por drones revolucionou nossa gestão.", author: "João Silva", location: "Fazenda Santa Maria, SP" },
+    { text: "Com a Zenith aumentamos a produtividade em 40% e reduzimos perdas. O monitoramento por drones revolucionou nossa gestão.", author: "João Silva", location: "Fazenda Santa Maria, SP" },
     { text: "A análise de dados nos ajudou a economizar 30% em insumos. A precisão é impressionante e o suporte está sempre disponível.", author: "Maria Oliveira", location: "Agropecuária Boa Vista, MG" },
     { text: "Melhor investimento que fizemos. A plataforma é intuitiva e os relatórios gerados pela IA são extremamente valiosos.", author: "Carlos Mendes", location: "Sítio São Pedro, MG" },
   ];
