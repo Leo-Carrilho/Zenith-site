@@ -30,8 +30,8 @@ export default function Footer({ onInstallClick }) {
       <div className="footer-circuit" />
       <div className="footer-container">
         <div className="footer-col">
-          <h2 className="footer-logo"><FaLeaf /> AgroTech</h2>
-          <p>Soluções com drones e IA para monitoramento agrícola, identificação de pragas e otimização de lavouras.</p>
+          <h2 className="footer-logo"><FaLeaf /> Zenith</h2>
+          <p> Monitoramento e manejo de plantio, detecção de pragas, análise de solo e muito mais. Tudo com a precisão e eficiência que só a tecnologia pode oferecer.</p>
         </div>
         <div className="footer-col">
           <h3>Links rápidos</h3>
