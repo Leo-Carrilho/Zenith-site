@@ -469,6 +469,27 @@ header {
   text-align: center;
 }
 
+/* Botão Whatsapp */
+
+.btn-whatsapp {
+  background: #25d366;
+  padding: 13px 28px;
+  border-radius: var(--radius-btn);
+  text-decoration: none;
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: var(--transition);
+}
+
+.btn-whatsapp:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(37,211,102,0.4);
+}
+
 /* ── HUD Frame (visual do drone) ── */
 .hero-visual {
   flex: 1;
@@ -781,89 +802,7 @@ header {
   margin: 0 auto;
 }
 
-/* ══════════════════════════════════
-   RESPONSIVIDADE
-══════════════════════════════════ */
-@media screen and (max-width: 768px) {
-  .services-section {
-    padding: 0 0 70px 0;
-  }
 
-  .services-wave-top {
-    height: 50px;
-  }
-
-  .services-grid-enhanced {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-
-  .service-card-enhanced {
-    padding: 36px 28px;
-  }
-
-  .service-card-enhanced h3 {
-    font-size: 22px;
-  }
-
-  .service-icon-enhanced {
-    width: 70px;
-    height: 70px;
-  }
-
-  .service-icon-enhanced svg {
-    width: 34px;
-    height: 34px;
-  }
-
-  .service-features-enhanced li {
-    font-size: 13px;
-    padding: 8px 0 8px 26px;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .services-section {
-    padding: 0 0 50px 0;
-  }
-
-  .services-wave-top {
-    height: 40px;
-  }
-
-  .service-card-enhanced {
-    padding: 28px 20px;
-  }
-
-  .service-card-enhanced h3 {
-    font-size: 20px;
-  }
-
-  .service-icon-enhanced {
-    width: 60px;
-    height: 60px;
-    margin-bottom: 20px;
-  }
-
-  .service-icon-enhanced svg {
-    width: 28px;
-    height: 28px;
-  }
-
-  .service-features-enhanced {
-    margin-bottom: 24px;
-  }
-}
-
-@media screen and (max-width: 360px) {
-  .service-card-enhanced {
-    padding: 24px 18px;
-  }
-
-  .service-card-enhanced h3 {
-    font-size: 18px;
-  }
-}
 
 /* Como funciona */
 .como-funciona {
@@ -1080,9 +1019,9 @@ header {
 .feature-item:hover p { 
   color: #080f0c;
 }
-/* ══════════════════════════════════
-   PLANOS E PREÇOS
-══════════════════════════════════ */
+
+
+/* Planos e Preços */
 .pricing-section {
   padding: 100px 0;
   background: linear-gradient(135deg, var(--bg-light) 0%, #0a2a1f 100%);
@@ -1234,23 +1173,28 @@ header {
   z-index: 0;
 }
 
-.btn-pricing span { position: relative; z-index: 1; }
+.btn-pricing span { 
+  position: relative; z-index: 1; 
+}
 
 .btn-pricing:hover {
   color: #000;
   box-shadow: 0 0 20px var(--primary-glow);
 }
-.btn-pricing:hover::before { transform: scaleX(1); }
+.btn-pricing:hover::before { 
+  transform: scaleX(1); 
+}
 
 .featured-btn {
   background: var(--primary);
   color: #000 !important;
 }
-.featured-btn::before { background: var(--primary-dark); }
+.featured-btn::before { 
+  background: var(--primary-dark); 
+}
 
-/* ══════════════════════════════════
-   DEPOIMENTOS
-══════════════════════════════════ */
+
+/* Depoimentos */
 .testimonials-section {
   padding: 100px 0;
   background: var(--bg-dark);
@@ -1283,8 +1227,12 @@ header {
   transition: width 0.4s ease;
 }
 
-.testimonial-card:hover { transform: translateY(-8px); }
-.testimonial-card:hover::after { width: 100%; }
+.testimonial-card:hover { 
+  transform: translateY(-8px); 
+}
+.testimonial-card:hover::after { 
+  width: 100%; 
+}
 
 .testimonial-quote {
   font-size: 72px;
@@ -1318,9 +1266,7 @@ header {
   font-size: 13px;
 }
 
-/* ══════════════════════════════════
-   FAQ
-══════════════════════════════════ */
+/* FAQ */
 .faq-section {
   padding: 100px 0;
   background: var(--bg-light);
@@ -1371,9 +1317,7 @@ header {
   border-top: 1px solid var(--glass-border);
 }
 
-/* ══════════════════════════════════
-   CONTATO
-══════════════════════════════════ */
+/* Contato */
 .contato {
   padding: 100px 0;
   background: var(--bg-section);
@@ -1587,12 +1531,17 @@ header {
   gap: 12px;
 }
 
-.form-success h3 { font-size: 24px; font-weight: 800; }
-.form-success p  { color: var(--text-secondary); }
+.form-success h3 { 
+  font-size: 24px; 
+  font-weight: 800; 
+}
 
-/* ══════════════════════════════════
-   FOOTER
-══════════════════════════════════ */
+.form-success p  {
+   color: var(--text-secondary); 
+}
+
+
+/* Footer */
 .footer {
   background: var(--bg-light);
   color: var(--text-primary);
@@ -1695,31 +1644,7 @@ header {
   gap: 8px;
 }
 
-/* ══════════════════════════════════
-   BOTÃO WHATSAPP (flutuante)
-══════════════════════════════════ */
-.btn-whatsapp {
-  background: #25d366;
-  padding: 13px 28px;
-  border-radius: var(--radius-btn);
-  text-decoration: none;
-  color: #fff;
-  font-weight: 700;
-  font-size: 15px;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  transition: var(--transition);
-}
-
-.btn-whatsapp:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 20px rgba(37,211,102,0.4);
-}
-
-/* ══════════════════════════════════
-   MEDIA QUERIES — Mobile First
-══════════════════════════════════ */
+/* Responsivo */
 @media screen and (max-width: 1100px) {
   header { padding: 16px 32px; }
   .hero-inner { padding: 140px 32px 80px; gap: 40px; }
@@ -1772,8 +1697,18 @@ header {
 
   .pricing-card.featured { transform: scale(1); }
 
+  .services-section { padding: 0 0 70px 0; }
   .services-grid { grid-template-columns: 1fr; }
+  .services-wave-top { height: 50px; }
+  .services-grid-enhanced { grid-template-columns: 1fr; gap: 28px; }
+  .service-card-enhanced { padding: 36px 28px; }
+  .service-card-enhanced h3 { font-size: 22px; }
+  .service-icon-enhanced { width: 70px; height: 70px; }
+  .service-icon-enhanced svg { width: 34px; height: 34px; }
+  .service-features-enhanced li { font-size: 13px; padding: 8px 0 8px 26px; }
+
   .testimonials-grid { grid-template-columns: 1fr; }
+
   .faq-grid { grid-template-columns: 1fr; }
 
   .main-services, .como-funciona, .features-section,
@@ -1804,6 +1739,14 @@ header {
   .steps-container { flex-direction: column; align-items: center; }
   .step-card { width: 100%; max-width: 340px; }
 
+  .services-section { padding: 0 0 50px 0; }
+  .services-wave-top { height: 40px; }
+  .service-card-enhanced { padding: 28px 20px; }
+  .service-card-enhanced h3 { font-size: 20px; }
+  .service-icon-enhanced { width: 60px; height: 60px; margin-bottom: 20px; }
+  .service-icon-enhanced svg { width: 28px; height: 28px; }
+  .service-features-enhanced { margin-bottom: 24px; }
+
   .pricing-grid { grid-template-columns: 1fr; }
 
   .contato-container { padding: 0 16px; }
@@ -1818,4 +1761,7 @@ header {
   header { padding: 12px 16px; }
   .hero-text h1 { font-size: 26px; }
   .hud-frame { width: 200px; height: 200px; }
+
+  .service-card-enhanced { padding: 24px 18px; }
+  .service-card-enhanced h3 { font-size: 18px; }
 }
