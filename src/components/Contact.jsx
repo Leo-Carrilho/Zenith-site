@@ -24,14 +24,48 @@ export default function Contato() {
     );
   }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const response = await fetch("http://localhost:3000/send-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nome: form.nome,
+        email: form.email,
+        mensagem: form.mensagem,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "Erro ao enviar");
+    }
+
+    // sucesso
     setSent(true);
+
+    // limpa o form (importante)
+    setForm({ nome: "", email: "", mensagem: "" });
+
     const gsap = window.gsap;
     if (gsap) {
-      gsap.fromTo(".form-success", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2)" });
+      gsap.fromTo(
+        ".form-success",
+        { opacity: 0, scale: 0.8 },
+        { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2)" }
+      );
     }
-  };
+
+  } catch (error) {
+    console.error("Erro real:", error);
+    alert("Erro ao enviar mensagem");
+  }
+};
 
   return (
     <section className="contato" id="contato" ref={sectionRef}>
