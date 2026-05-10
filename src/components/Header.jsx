@@ -53,7 +53,7 @@ export default function Header({ onInstallClick }) {
         <div className="header-circuit-line" />
 
         <a href="#hero" className="logo" onClick={closeMenu}>
-          <FaLeaf className="logo-icon" /> Zenith
+          <img className="logo-img" src="/assets/images/Logo-redonda.png" alt="Zenith" />Zenith
         </a>
 
         <button
