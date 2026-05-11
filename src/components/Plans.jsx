@@ -20,12 +20,12 @@ export default function Planos() {
 
   const plans = [
     {
-      badge: "Básico", name: "Agro Vision", price: "R$ 299", period: "/mês",
-      features: ["Monitoramento de até 50 ha", "Relatórios mensais", "Suporte por e-mail", "Acesso ao app básico"],
+      badge: "Básico", name: "Agro Vision", price: "R$ 799", period: "/anual",
+      features: ["Monitoramento de até 50 ha", "Relatórios mensais com IA", "Suporte por e-mail", "Acesso ao monitoramento e detecção da platação"],
       featured: false,
     },
     {
-      badge: "Profissional", name: "Agro Imperial", price: "R$ 599", period: "/mês",
+      badge: "Profissional", name: "Agro Imperial", price: "R$ 1200", period: "/anual",
       features: ["Monitoramento de até 200 ha", "Relatórios semanais com IA", "Suporte prioritário 24/7", "Acesso completo ao app", "Consultoria especializada"],
       featured: true,
     },

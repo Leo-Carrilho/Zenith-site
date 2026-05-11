@@ -30,7 +30,7 @@ export default function Footer({ onInstallClick }) {
       <div className="footer-circuit" />
       <div className="footer-container">
         <div className="footer-col">
-          <h2 className="footer-logo"><FaLeaf /> Zenith</h2>
+          <h2 className="footer-logo"><img className="logo-img" src="assets/images/Logo-redonda.png" alt="" /> Zenith</h2>
           <p> Monitoramento e manejo de plantio, detecção de pragas, análise de solo e muito mais. Tudo com a precisão e eficiência que só a tecnologia pode oferecer.</p>
         </div>
         <div className="footer-col">
