@@ -71,27 +71,31 @@ export default function HeroSection({ onInstallClick }) {
     });
   }, []);
 
-  const handleInstall = () => {
-    if (onInstallClick) {
-      onInstallClick();
-    } else {
-      // Fallback: redirecionar para URL de instalação
-      const PWA_URL = "https://instalacao-mobile.vercel.app";
-      const isAndroid = /Android/i.test(navigator.userAgent);
-      const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-      
-      if (isAndroid) {
-        window.location.href = `${PWA_URL}?install=true`;
-        setTimeout(() => {
-          alert('📱 Quando a tela de instalação aparecer, clique em "Instalar"');
-        }, 1000);
-      } else if (isIOS) {
-        window.open(PWA_URL, '_blank');
-      } else {
-        window.location.href = PWA_URL;
-      }
+ const handleInstall = () => {
+  const MOBILE_URL = "https://instalacao-mobile.vercel.app";
+  const DESKTOP_URL = "https://Zenith-desketop.vercel.app";
+
+  const isAndroid = /Android/i.test(navigator.userAgent);
+  const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  const isMobile = isAndroid || isIOS;
+
+  // Mobile
+  if (isMobile) {
+    window.location.href = MOBILE_URL;
+
+    if (isAndroid) {
+      setTimeout(() => {
+        alert('📱 Clique em "Instalar" quando aparecer a opção');
+      }, 1000);
     }
-  };
+
+    return;
+  }
+
+  // Desktop
+  window.location.href = DESKTOP_URL;
+};
 
   return (
     <section className="hero" id="hero" ref={heroRef}>
